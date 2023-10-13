@@ -10,18 +10,9 @@ const ChatMessage: FunctionComponent<ChatMessageProps> = ({ text, me }) => {
   return (
     <div className={`flex items-start gap-2 ${me ? "flex-row-reverse" : ""}`}>
       <div className="flex-shrink-0">
-        {me ? (
+        {me ? null : (
           <Avatar className="bg-primary cursor-pointer">
-            <AvatarImage
-              src="src/assets/icons/logo.png"
-              width={16}
-              height={15}
-            />
-            <AvatarFallback>Corolair</AvatarFallback>
-          </Avatar>
-        ) : (
-          <Avatar className="bg-primary cursor-pointer">
-            <AvatarImage src="src/assets/icons/logo.png" />
+            <AvatarImage src="https://i.ibb.co/cFTrtmk/icon-512x512.png" />
             <AvatarFallback>Corolair</AvatarFallback>
           </Avatar>
         )}

@@ -14,7 +14,7 @@ const Chatbot: FunctionComponent<ChatbotProps> = () => {
       <Popover>
         <PopoverTrigger asChild>
           <Avatar className="bg-primary cursor-pointer">
-            <AvatarImage src="src/assets/icons/logo.png" />
+            <AvatarImage src="https://i.ibb.co/cFTrtmk/icon-512x512.png" />
             <AvatarFallback>Corolair</AvatarFallback>
           </Avatar>
         </PopoverTrigger>

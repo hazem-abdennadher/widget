@@ -43,7 +43,7 @@ export function ChatInput() {
           render={({ field }) => (
             <FormItem className="w-full">
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="Ask me something" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
