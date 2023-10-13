@@ -13,5 +13,5 @@ export default defineConfig({
       },
     },
   },
-  base: "https://cdn.jsdelivr.net/gh/hazem-abdennadher/test-widget/dist/",
+  // base: "https://cdn.jsdelivr.net/gh/hazem-abdennadher/widget/dist/",
 });
