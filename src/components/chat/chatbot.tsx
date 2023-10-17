@@ -1,53 +1,153 @@
-import { FunctionComponent } from "react";
+import { FunctionComponent, useEffect, useRef, useState } from "react";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
-
-interface ChatbotProps {}
+import { v4 } from "uuid";
 import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
 import ChatFooter from "./footer";
-import { Separator } from "../ui/separator";
-import { ChatInput } from "./chat-input";
-import ChatMessageList from "./chat-message-list";
+import axios from "axios";
+import { Message } from "ai";
+import { ChatList } from "./chat-list";
+import { cn } from "../../lib/utils";
+import { ChatScrollAnchor } from "./chat-scroll-anchor";
+import { convesationLogToInitialMessages } from "./helpers";
+import { useChat } from "ai/react";
+import { ChatPanel } from "./chat-panel";
+import { useToast } from "../ui/use-toast";
+import { EmptyScreen } from "./empty-screen";
+import InviteForm from "./invite-form";
+interface ChatbotProps {
+  chatbotId: string;
+}
+const Chatbot: FunctionComponent<ChatbotProps> = ({ chatbotId }) => {
+  const [sessionId, setSessionId] = useState<string>("");
+  const [username, setUsername] = useState<string>("");
+  const [conversations, setConversation] = useState<Message[]>([]);
+  const { toast } = useToast();
 
-const Chatbot: FunctionComponent<ChatbotProps> = () => {
+  useEffect(() => {
+    if (localStorage.getItem("sessionId") === null) {
+      const id = v4();
+      localStorage.setItem("sessionId", id);
+      setSessionId(id);
+    } else {
+      setSessionId(localStorage.getItem("sessionId") as string);
+    }
+
+    if (localStorage.getItem("username") !== null) {
+      setUsername(localStorage.getItem("username") as string);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (!sessionId) return;
+    const getData = async () => {
+      const { data } = await axios.get(
+        `http://localhost:3000/api/chatbots/get?sessionId=${sessionId}&chatbotId=${chatbotId}`
+      );
+      console.log(data);
+      setConversation(data);
+    };
+    getData();
+  }, [sessionId, chatbotId]);
+
+  const chatArea = useRef<HTMLDivElement>(null);
+
+  const {
+    messages,
+    append,
+    reload,
+    stop,
+    isLoading,
+    input,
+    setInput,
+    setMessages,
+  } = useChat({
+    api: "http://localhost:3000/api/chatbots/chat",
+    id: sessionId,
+
+    body: {
+      sessionId: sessionId,
+      chatbotId: chatbotId,
+      username: username,
+    },
+    onResponse(response) {
+      if (response.status === 401) {
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description:
+            "There was a problem with your request. please try again",
+        });
+      }
+    },
+
+    initialMessages: convesationLogToInitialMessages(
+      // @ts-ignore
+      conversations
+    ) as Message[],
+  });
+  console.log({ conversations });
+  // ! not the best, but it works for now, we simply set the message since the initialMessages on the useChat is not working
+  useEffect(() => {
+    if (conversations) {
+      setMessages(convesationLogToInitialMessages(conversations) as Message[]);
+    }
+  }, [conversations]);
+
+  useEffect(() => {
+    chatArea?.current?.scrollTo({
+      top: chatArea?.current.scrollHeight,
+      behavior: "smooth",
+    });
+  }, [messages?.length, chatArea?.current?.scrollHeight]);
+
   return (
     <div className="fixed bottom-4 right-4">
       <Popover>
         <PopoverTrigger asChild>
           <Avatar className="bg-primary cursor-pointer">
-            <AvatarImage src="https://i.ibb.co/cFTrtmk/icon-512x512.png" />
+            <AvatarImage src="src/assets/icons/logo.png" />
             <AvatarFallback>Corolair</AvatarFallback>
           </Avatar>
         </PopoverTrigger>
         <PopoverContent className="w-[465px] space-y-2">
-          <ChatMessageList messages={Messages} />
-          <ChatInput />
-          <Separator />
+          {username ? (
+            <>
+              <div className="h-[50vh]">
+                {messages.length ? (
+                  <div
+                    ref={chatArea}
+                    className={cn("h-[50vh] w-full overflow-y-scroll")}
+                  >
+                    <ChatList messages={messages} />
+                    <ChatScrollAnchor
+                      area={chatArea}
+                      trackVisibility={isLoading}
+                    />
+                  </div>
+                ) : (
+                  <EmptyScreen setInput={setInput} />
+                )}
+              </div>
+              <ChatPanel
+                isLoading={isLoading}
+                stop={stop}
+                append={append}
+                reload={reload}
+                messages={messages}
+                input={input}
+                setInput={setInput}
+                chatArea={chatArea}
+              />
+            </>
+          ) : (
+            <InviteForm saveUsername={setUsername} />
+          )}
+
           <ChatFooter />
         </PopoverContent>
       </Popover>
     </div>
   );
 };
-
-const Messages: {
-  me: boolean;
-  text: string;
-}[] = [
-  { me: false, text: "Hello, how can I help you today?" },
-  { me: true, text: "Hi, I'm having trouble with my account." },
-  { me: false, text: "Sure, what seems to be the issue?" },
-  { me: true, text: "I can't seem to log in." },
-  { me: false, text: "Have you tried resetting your password?" },
-  { me: true, text: "Yes, but it's still not working." },
-  {
-    me: false,
-    text: "Let me check your account. Can you please provide me with your email address?",
-  },
-  { me: true, text: "Sure, it's john@example.com." },
-  {
-    me: false,
-    text: "Thank you. I will look into this and get back to you shortly.",
-  },
-];
 
 export default Chatbot;

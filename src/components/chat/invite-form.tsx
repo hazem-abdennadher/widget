@@ -1,58 +1,66 @@
+import { FunctionComponent } from "react";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { useForm } from "react-hook-form";
-import { Button } from "../ui/button";
 import {
   Form,
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "../ui/form";
 import { Input } from "../ui/input";
-import { FiSend } from "react-icons/fi";
-
+import { Button } from "../ui/button";
 const formSchema = z.object({
-  input: z.string().nonempty(),
+  username: z.string().min(2, {
+    message: "Username must be at least 2 characters.",
+  }),
 });
 
-export function ChatInput() {
+interface InviteFormProps {
+  saveUsername: (username: string) => void;
+}
+
+const InviteForm: FunctionComponent<InviteFormProps> = ({ saveUsername }) => {
+  // 1. Define your form.
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      input: "",
+      username: "",
     },
   });
 
   // 2. Define a submit handler.
   function onSubmit(values: z.infer<typeof formSchema>) {
-    // Do something with the form values.
-    // ✅ This will be type-safe and validated.
-    console.log(values);
+    localStorage.setItem("username", values.username);
+    saveUsername(values.username);
   }
-
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex items-center gap-2"
+        className="space-y-8 border border-secondary rounded-lg p-8 w-full max-w-sm mt-5"
       >
         <FormField
           control={form.control}
-          name="input"
+          name="username"
           render={({ field }) => (
-            <FormItem className="w-full">
+            <FormItem>
+              <FormLabel>name</FormLabel>
               <FormControl>
-                <Input placeholder="shadcn" {...field} />
+                <Input placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
-        <Button type="submit">
-          <FiSend />
+        <Button type="submit" className="w-full">
+          continue
         </Button>
       </form>
     </Form>
   );
-}
+};
+
+export default InviteForm;
