@@ -2,6 +2,7 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import { TooltipProvider } from "./components/ui/tooltip";
 import Chatbot from "./components/chat/chatbot";
+import { Toaster } from "./components/ui/toaster";
 document.addEventListener("DOMContentLoaded", () => {
   const chatbot: HTMLScriptElement | null = document.querySelector(
     'script[data-name="chatbot"]'
@@ -17,8 +18,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.appendChild(div);
   const root = createRoot(div);
   root.render(
-    <TooltipProvider>
-      <Chatbot chatbotId={chatbotId} />
-    </TooltipProvider>
+    <>
+      <TooltipProvider>
+        <Chatbot chatbotId={chatbotId} />
+      </TooltipProvider>
+      <Toaster />
+    </>
   );
 });
