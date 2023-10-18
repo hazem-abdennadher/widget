@@ -41,7 +41,7 @@ const Chatbot: FunctionComponent<ChatbotProps> = ({ chatbotId }) => {
     if (!sessionId) return;
     const getData = async () => {
       const { data } = await axios.get(
-        `https://app.corolair.com/api/chatbots/get?sessionId=${sessionId}&chatbotId=${chatbotId}`
+        `https://staging-git-feat-widget-corolair.vercel.app/api/chatbots/get?sessionId=${sessionId}&chatbotId=${chatbotId}`
       );
       console.log(data);
       setConversation(data);
@@ -61,7 +61,7 @@ const Chatbot: FunctionComponent<ChatbotProps> = ({ chatbotId }) => {
     setInput,
     setMessages,
   } = useChat({
-    api: "https://app.corolair.com/api/chatbots/chat",
+    api: "https://staging-git-feat-widget-corolair.vercel.app/api/chatbots/chat",
     id: sessionId,
 
     body: {
