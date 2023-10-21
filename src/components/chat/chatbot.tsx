@@ -40,11 +40,19 @@ const Chatbot: FunctionComponent<ChatbotProps> = ({ chatbotId }) => {
   useEffect(() => {
     if (!sessionId) return;
     const getData = async () => {
-      const { data } = await axios.get(
-        `https://staging-git-feat-widget-corolair.vercel.app/api/chatbots/get?sessionId=${sessionId}&chatbotId=${chatbotId}`
-      );
-      console.log(data);
-      setConversation(data);
+      try {
+        const { data } = await axios.post(
+          `https://prod-git-feat-widget-corolair.vercel.app/api/widget/history/`,
+          {
+            sessionId: sessionId,
+            chatbotId: chatbotId,
+          }
+        );
+
+        setConversation(data.data);
+      } catch (error) {
+        console.log(error);
+      }
     };
     getData();
   }, [sessionId, chatbotId]);
@@ -61,7 +69,7 @@ const Chatbot: FunctionComponent<ChatbotProps> = ({ chatbotId }) => {
     setInput,
     setMessages,
   } = useChat({
-    api: "https://staging-git-feat-widget-corolair.vercel.app/api/chatbots/chat",
+    api: `https://prod-git-feat-widget-corolair.vercel.app/api/widget/chat/`,
     id: sessionId,
 
     body: {
@@ -69,6 +77,7 @@ const Chatbot: FunctionComponent<ChatbotProps> = ({ chatbotId }) => {
       chatbotId: chatbotId,
       username: username,
     },
+
     onResponse(response) {
       if (response.status === 401) {
         toast({
