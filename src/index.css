@@ -51,9 +51,9 @@
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-widget-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-widget-background text-widget-foreground;
   }
 }

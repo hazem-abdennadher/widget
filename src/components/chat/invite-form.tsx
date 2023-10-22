@@ -40,7 +40,7 @@ const InviteForm: FunctionComponent<InviteFormProps> = ({ saveUsername }) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-8 border border-secondary rounded-lg p-8 w-full max-w-sm mt-5"
+        className="space-y-8 border border-widget-secondary rounded-lg p-8 w-full max-w-sm mt-5"
       >
         <FormField
           control={form.control}

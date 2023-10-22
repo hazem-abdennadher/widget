@@ -17,36 +17,36 @@ module.exports = {
     },
     extend: {
       colors: {
-        border: "hsl(var(--widget-border))",
-        input: "hsl(var(--widget-input))",
-        ring: "hsl(var(--widget-ring))",
-        background: "hsl(var(--widget-background))",
-        foreground: "hsl(var(--widget-foreground))",
-        primary: {
+        "widget-border": "hsl(var(--widget-border))",
+        "widget-input": "hsl(var(--widget-input))",
+        "widget-ring": "hsl(var(--widget-ring))",
+        "widget-background": "hsl(var(--widget-background))",
+        "widget-foreground": "hsl(var(--widget-foreground))",
+        "widget-primary": {
           DEFAULT: "hsl(var(--widget-primary))",
           foreground: "hsl(var(--widget-primary-foreground))",
         },
-        secondary: {
+        "widget-secondary": {
           DEFAULT: "hsl(var(--widget-secondary))",
           foreground: "hsl(var(--widget-secondary-foreground))",
         },
-        destructive: {
+        "widget-destructive": {
           DEFAULT: "hsl(var(--widget-destructive))",
           foreground: "hsl(var(--widget-destructive-foreground))",
         },
-        muted: {
+        "widget-muted": {
           DEFAULT: "hsl(var(--widget-muted))",
           foreground: "hsl(var(--widget-muted-foreground))",
         },
-        accent: {
+        "widget-accent": {
           DEFAULT: "hsl(var(--widget-accent))",
           foreground: "hsl(var(--widget-accent-foreground))",
         },
-        popover: {
+        "widget-popover": {
           DEFAULT: "hsl(var(--widget-popover))",
           foreground: "hsl(var(--widget-popover-foreground))",
         },
-        card: {
+        "widget-card": {
           DEFAULT: "hsl(var(--widget-card))",
           foreground: "hsl(var(--widget-card-foreground))",
         },

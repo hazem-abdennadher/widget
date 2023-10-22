@@ -19,7 +19,7 @@ export function ChatMessage({ message, ...props }: ChatMessageProps) {
       <div
         className={cn(
           "flex h-8 w-8 shrink-0 select-none items-center justify-center rounded-md border shadow",
-          message.role === "user" ? "bg-background" : "bg-blue-100"
+          message.role === "user" ? "bg-widget-background" : "bg-blue-100"
         )}
       >
         {message.role === "user" ? (
