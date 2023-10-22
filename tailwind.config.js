@@ -17,38 +17,38 @@ module.exports = {
     },
     extend: {
       colors: {
-        "widget-border": "hsl(var(--widget-border))",
-        "widget-input": "hsl(var(--widget-input))",
-        "widget-ring": "hsl(var(--widget-ring))",
-        "widget-background": "hsl(var(--widget-background))",
-        "widget-foreground": "hsl(var(--widget-foreground))",
+        "widget-border": "hsl(214.3 31.8% 91.4%)",
+        "widget-input": "hsl(214.3 31.8% 91.4%)",
+        "widget-ring": "hsl(221.2 83.2% 53.3%)",
+        "widget-background": "hsl(0 0% 100%)",
+        "widget-foreground": "hsl(222.2 84% 4.9%)",
         "widget-primary": {
-          DEFAULT: "hsl(var(--widget-primary))",
-          foreground: "hsl(var(--widget-primary-foreground))",
+          DEFAULT: "hsl(221.2 83.2% 53.3%)",
+          foreground: "hsl(210 40% 98%)",
         },
         "widget-secondary": {
-          DEFAULT: "hsl(var(--widget-secondary))",
-          foreground: "hsl(var(--widget-secondary-foreground))",
+          DEFAULT: "hsl(210 40% 96.1%)",
+          foreground: "hsl(215.4 16.3% 46.9%)",
         },
         "widget-destructive": {
-          DEFAULT: "hsl(var(--widget-destructive))",
-          foreground: "hsl(var(--widget-destructive-foreground))",
+          DEFAULT: "hsl(0 84.2% 60.2%)",
+          foreground: "hsl(--widget-destructive-foreground)",
         },
         "widget-muted": {
-          DEFAULT: "hsl(var(--widget-muted))",
-          foreground: "hsl(var(--widget-muted-foreground))",
+          DEFAULT: "hsl(--widget-muted)",
+          foreground: "hsl(210 40% 98%)",
         },
         "widget-accent": {
-          DEFAULT: "hsl(var(--widget-accent))",
-          foreground: "hsl(var(--widget-accent-foreground))",
+          DEFAULT: "hsl(210 40% 96.1%)",
+          foreground: "hsl(222.2 47.4% 11.2%)",
         },
         "widget-popover": {
-          DEFAULT: "hsl(var(--widget-popover))",
-          foreground: "hsl(var(--widget-popover-foreground))",
+          DEFAULT: "hsl(0 0% 100%)",
+          foreground: "hsl(222.2 84% 4.9%)",
         },
         "widget-card": {
-          DEFAULT: "hsl(var(--widget-card))",
-          foreground: "hsl(var(--widget-card-foreground))",
+          DEFAULT: "hsl(0 0% 100%)",
+          foreground: "hsl(222.2 84% 4.9%)",
         },
       },
       borderRadius: {

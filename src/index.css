@@ -48,12 +48,3 @@
     --widget-ring: 224.3 76.3% 48%;
   }
 }
-
-@layer base {
-  * {
-    @apply border-widget-border;
-  }
-  body {
-    @apply bg-widget-background text-widget-foreground;
-  }
-}
